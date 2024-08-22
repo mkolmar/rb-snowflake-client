@@ -136,7 +136,7 @@ module RubySnowflake
       @_enable_polling_queries = false
     end
 
-    def query(query, warehouse: nil, streaming: false, database: nil, schema: nil, bindings: nil)
+    def query(query, warehouse: nil, streaming: false, database: nil, schema: nil, role: nil, bindings: nil)
       warehouse ||= @default_warehouse
       database ||= @default_database
 
@@ -146,6 +146,7 @@ module RubySnowflake
         request_body = {
           "warehouse" => warehouse&.upcase,
           "schema" => schema&.upcase,
+          "role" => role&.upcase,
           "database" =>  database&.upcase,
           "statement" => query,
           "bindings" => bindings
